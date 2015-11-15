@@ -36,11 +36,6 @@
         <activity
             android:name=".MapsActivity"
             android:label="@string/title_activity_maps" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".SignUpPage"
@@ -51,6 +46,11 @@
             android:label="@string/title_activity_settings_page" >
         </activity>
         <activity android:name=".MainPage" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".HomePage"
@@ -66,6 +66,8 @@
             android:name=".TabbedActivity"
             android:label="@string/title_activity_tabbed"
             android:theme="@style/AppTheme.NoActionBar" >
+        </activity>
+        <activity android:name=".ManualActivity" >
         </activity>
     </application>
 
