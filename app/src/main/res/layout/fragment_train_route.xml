@@ -1,0 +1,50 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="akanshaapp.com.geu.akanshaapp.akanshaapp.TrainInfoFragment">
+
+
+    <AutoCompleteTextView
+        android:id="@+id/actsource"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_margin="10dp"
+        android:layout_marginTop="20dp"
+        android:hint="Train No. or Train Name" />
+
+
+
+    <Button
+        android:id="@+id/bsearch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/actsource"
+        android:layout_centerHorizontal="true"
+        android:text="Search" />
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/trainrouterecycler"
+        android:layout_below="@+id/bsearch">
+
+
+
+    </android.support.v7.widget.RecyclerView>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="5dp"
+        android:background="#00f"
+        android:padding="5dp"
+        android:text="GoogleMap"
+        android:layout_below="@+id/trainrouterecycler"
+        android:textAlignment="center"
+        android:textColor="#fff"
+        android:id="@+id/linkgoogle" />
+
+</RelativeLayout>

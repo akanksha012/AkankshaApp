@@ -1,5 +1,6 @@
 package akanshaapp.com.geu.akanshaapp.akanshaapp;
 
+import android.graphics.Color;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 
@@ -9,6 +10,9 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.PolylineOptions;
+
+import java.util.List;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -25,22 +29,72 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
 
-    /**
-     * Manipulates the map once available.
-     * This callback is triggered when the map is ready to be used.
-     * This is where we can add markers or lines, add listeners or move the camera. In this case,
-     * we just add a marker near Sydney, Australia.
-     * If Google Play services is not installed on the device, the user will be prompted to install
-     * it inside the SupportMapFragment. This method will only be triggered once the user has
-     * installed Google Play services and returned to the app.
-     */
+
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+
+
+
+        LatLng dehradun = new LatLng(30.33,70.00);
+        mMap.addMarker(new MarkerOptions().position(dehradun).title("My location"));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(dehradun));
+
+
+
+        if(TrainInfoFragment.ti!=null)
+        {
+            List<Route> routelist=TrainInfoFragment.ti.getRoute();
+
+            for(int i=0;i<routelist.size();i++)
+            {
+                if(i==0) {
+                    mMap.addMarker(new MarkerOptions().position(new LatLng(Double.parseDouble(routelist.get(i).getLat()), Double.parseDouble(routelist.get(i).getLng()))).title(routelist.get(i).getFullname()).snippet(routelist.get(i).getState()));
+                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(Double.parseDouble(routelist.get(i).getLat()), Double.parseDouble(routelist.get(i).getLng())),15));
+                }
+                else
+                {
+                    mMap.addMarker(new MarkerOptions().position(new LatLng(Double.parseDouble(routelist.get(i).getLat()), Double.parseDouble(routelist.get(i).getLng()))).title(routelist.get(i).getFullname()).snippet(routelist.get(i).getState()));
+
+                }
+
+            }
+
+            for(int i=0;i<routelist.size()-1;i++)
+            {
+                mMap.addPolyline(new PolylineOptions().add(new LatLng(Double.parseDouble(routelist.get(i).getLat()), Double.parseDouble(routelist.get(i).getLng())),new LatLng(Double.parseDouble(routelist.get(i+1).getLat()), Double.parseDouble(routelist.get(i+1).getLng()))).color(Color.BLUE));
+            }
+
+
+        }
+
+
+        if(TrainRouteFragment.ti!=null)
+        {
+            List<Route> routelist=TrainRouteFragment.ti.getRoute();
+
+            for(int i=0;i<routelist.size();i++)
+            {
+                if(i==0) {
+                    mMap.addMarker(new MarkerOptions().position(new LatLng(Double.parseDouble(routelist.get(i).getLat()), Double.parseDouble(routelist.get(i).getLng()))).title(routelist.get(i).getFullname()).snippet(routelist.get(i).getState()));
+                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(Double.parseDouble(routelist.get(i).getLat()), Double.parseDouble(routelist.get(i).getLng())),15));
+                }
+                else
+                {
+                    mMap.addMarker(new MarkerOptions().position(new LatLng(Double.parseDouble(routelist.get(i).getLat()), Double.parseDouble(routelist.get(i).getLng()))));
+
+                }
+
+            }
+
+            for(int i=0;i<routelist.size()-1;i++)
+            {
+                mMap.addPolyline(new PolylineOptions().add(new LatLng(Double.parseDouble(routelist.get(i).getLat()), Double.parseDouble(routelist.get(i).getLng())), new LatLng(Double.parseDouble(routelist.get(i).getLat()), Double.parseDouble(routelist.get(i).getLng()))).color(Color.BLUE));
+            }
+
+
+        }
+
     }
 }

@@ -22,8 +22,9 @@ public class MainPage extends AppCompatActivity {
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
-                        Intent i=new Intent(MainPage.this,ManualActivity.class);
+                        Intent i=new Intent(MainPage.this,HomeActivity.class);
                         startActivity(i);
+                        finish();
                     }
                 }.start();
 
