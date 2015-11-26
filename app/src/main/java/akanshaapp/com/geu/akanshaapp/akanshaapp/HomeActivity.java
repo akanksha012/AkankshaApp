@@ -37,6 +37,11 @@ public class HomeActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
 
+
+        FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
+        tx.replace(R.id.main, new TrainInfoFragment());
+        tx.commit();
+getSupportActionBar().setTitle("Train Information");
     }
 
     @Override
@@ -61,20 +66,23 @@ public class HomeActivity extends AppCompatActivity
             FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
             tx.replace(R.id.main, new TrainInfoFragment());
             tx.commit();
-
+getSupportActionBar().setTitle("Train Information");
             // Handle the camera action
         } else if (id == R.id.nav_gallery) {
             FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
             tx.replace(R.id.main, new TrainBetweenFragment());
             tx.commit();
+            getSupportActionBar().setTitle("Train Between Station");
 
         } else if (id == R.id.nav_slideshow) {
             FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
             tx.replace(R.id.main, new TrainRouteFragment());
+            getSupportActionBar().setTitle("Train Route");
             tx.commit();
 
         } else if (id == R.id.nav_manage) {
             Intent i = new Intent(HomeActivity.this, MapsActivity.class);
+            i.putExtra("from","home");
             startActivity(i);
         }
 

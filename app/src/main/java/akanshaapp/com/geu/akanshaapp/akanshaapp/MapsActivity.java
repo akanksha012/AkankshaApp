@@ -8,6 +8,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
@@ -37,64 +38,117 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
 
-        LatLng dehradun = new LatLng(30.33,70.00);
+        LatLng dehradun = new LatLng(30.3180,78.0290);
         mMap.addMarker(new MarkerOptions().position(dehradun).title("My location"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(dehradun));
 
 
+      String from =  getIntent().getExtras().getString("from");
 
-        if(TrainInfoFragment.ti!=null)
+        if (from.contains("traininfo"))
         {
-            List<Route> routelist=TrainInfoFragment.ti.getRoute();
+        if(TrainInfoFragment.ti!=null) {
+            List<Route> routelist = TrainInfoFragment.ti.getRoute();
 
-            for(int i=0;i<routelist.size();i++)
-            {
-                if(i==0) {
-                    mMap.addMarker(new MarkerOptions().position(new LatLng(Double.parseDouble(routelist.get(i).getLat()), Double.parseDouble(routelist.get(i).getLng()))).title(routelist.get(i).getFullname()).snippet(routelist.get(i).getState()));
-                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(Double.parseDouble(routelist.get(i).getLat()), Double.parseDouble(routelist.get(i).getLng())),15));
+            for (int i = 0; i < routelist.size(); i++) {
+
+                if(Double.parseDouble(TrainInfoFragment.ti.getRoute().get(i).getLat())!=0.0&&!TrainInfoFragment.ti.getRoute().get(i).getFullname().contains("NEW DELHI")) {
+                    if (i == 0) {
+                        mMap.addMarker(new MarkerOptions().position(new LatLng(Double.parseDouble(routelist.get(i).getLat()), Double.parseDouble(routelist.get(i).getLng()))).title(routelist.get(i).getFullname()).snippet(routelist.get(i).getState()));
+                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(Double.parseDouble(routelist.get(i).getLat()), Double.parseDouble(routelist.get(i).getLng())), 15));
+                    } else {
+                        mMap.addMarker(new MarkerOptions().position(new LatLng(Double.parseDouble(routelist.get(i).getLat()), Double.parseDouble(routelist.get(i).getLng()))).title(routelist.get(i).getFullname()).snippet(routelist.get(i).getState()));
+
+                    }
                 }
                 else
                 {
-                    mMap.addMarker(new MarkerOptions().position(new LatLng(Double.parseDouble(routelist.get(i).getLat()), Double.parseDouble(routelist.get(i).getLng()))).title(routelist.get(i).getFullname()).snippet(routelist.get(i).getState()));
+                    TrainInfoFragment.ti.getRoute().get(i).setLat("28.643");
+                    TrainInfoFragment.ti.getRoute().get(i).setLng("77.222");
+                    TrainInfoFragment.ti.getRoute().get(i).setState("Delhi");
+                    mMap.addMarker(new MarkerOptions().position(new LatLng(Double.parseDouble(TrainInfoFragment.ti.getRoute().get(i).getLat()), Double.parseDouble(TrainInfoFragment.ti.getRoute().get(i).getLng()))).title(TrainInfoFragment.ti.getRoute().get(i).getFullname()).snippet(TrainInfoFragment.ti.getRoute().get(i).getState()));
+
 
                 }
-
             }
+routelist=TrainInfoFragment.ti.getRoute();
+            for (int i = 0; i < TrainInfoFragment.ti.getRoute().size() - 1;) {
 
-            for(int i=0;i<routelist.size()-1;i++)
-            {
-                mMap.addPolyline(new PolylineOptions().add(new LatLng(Double.parseDouble(routelist.get(i).getLat()), Double.parseDouble(routelist.get(i).getLng())),new LatLng(Double.parseDouble(routelist.get(i+1).getLat()), Double.parseDouble(routelist.get(i+1).getLng()))).color(Color.BLUE));
-            }
+                int x=i;
 
-
-        }
-
-
-        if(TrainRouteFragment.ti!=null)
-        {
-            List<Route> routelist=TrainRouteFragment.ti.getRoute();
-
-            for(int i=0;i<routelist.size();i++)
-            {
-                if(i==0) {
-                    mMap.addMarker(new MarkerOptions().position(new LatLng(Double.parseDouble(routelist.get(i).getLat()), Double.parseDouble(routelist.get(i).getLng()))).title(routelist.get(i).getFullname()).snippet(routelist.get(i).getState()));
-                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(Double.parseDouble(routelist.get(i).getLat()), Double.parseDouble(routelist.get(i).getLng())),15));
+                int y;
+                if(Double.parseDouble(TrainInfoFragment.ti.getRoute().get(i+1).getLng())!=0.0)
+                {
+                    y=i+1;
                 }
                 else
                 {
-                    mMap.addMarker(new MarkerOptions().position(new LatLng(Double.parseDouble(routelist.get(i).getLat()), Double.parseDouble(routelist.get(i).getLng()))));
-
+                    y=i+2;
                 }
 
-            }
 
-            for(int i=0;i<routelist.size()-1;i++)
-            {
-                mMap.addPolyline(new PolylineOptions().add(new LatLng(Double.parseDouble(routelist.get(i).getLat()), Double.parseDouble(routelist.get(i).getLng())), new LatLng(Double.parseDouble(routelist.get(i).getLat()), Double.parseDouble(routelist.get(i).getLng()))).color(Color.BLUE));
-            }
+                mMap.addPolyline(new PolylineOptions().add(new LatLng(Double.parseDouble(routelist.get(x).getLat()), Double.parseDouble(routelist.get(x).getLng())), new LatLng(Double.parseDouble(routelist.get(y).getLat()), Double.parseDouble(routelist.get(y).getLng()))).color(Color.BLUE));
 
+            i=y;
+
+            }
+        }
 
         }
+        else if(from.contains("trainbetween"))
+        {
+
+
+        if(TrainRouteFragment.ti!=null) {
+            List<Route> routelist = TrainRouteFragment.ti.getRoute();
+
+            for (int i = 0; i < routelist.size(); i++) {
+
+                if(Double.parseDouble(TrainRouteFragment.ti.getRoute().get(i).getLat())!=0.0&&!TrainRouteFragment.ti.getRoute().get(i).getFullname().contains("NEW DELHI")) {
+
+                        if (i == 0) {
+                            mMap.addMarker(new MarkerOptions().position(new LatLng(Double.parseDouble(routelist.get(i).getLat()), Double.parseDouble(routelist.get(i).getLng()))).title(routelist.get(i).getFullname()).snippet(routelist.get(i).getState()));
+                            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(Double.parseDouble(routelist.get(i).getLat()), Double.parseDouble(routelist.get(i).getLng())), 15));
+                        } else {
+                            mMap.addMarker(new MarkerOptions().position(new LatLng(Double.parseDouble(routelist.get(i).getLat()), Double.parseDouble(routelist.get(i).getLng()))));
+
+                        }
+                    }
+                    else
+                    {
+                        TrainRouteFragment.ti.getRoute().get(i).setLat("28.643");
+                        TrainRouteFragment.ti.getRoute().get(i).setLat("77.222");
+                        TrainRouteFragment.ti.getRoute().get(i).setState("Delhi");
+                        mMap.addMarker(new MarkerOptions().position(new LatLng(Double.parseDouble(TrainRouteFragment.ti.getRoute().get(i).getLat()), Double.parseDouble(TrainRouteFragment.ti.getRoute().get(i).getLng()))).title(TrainRouteFragment.ti.getRoute().get(i).getFullname()).snippet(TrainRouteFragment.ti.getRoute().get(i).getState()));
+
+                    }
+
+            }
+routelist=TrainRouteFragment.ti.getRoute();
+            for (int i = 0; i < routelist.size() - 1; i++) {
+
+                int x=i;
+
+                int y;
+                if(Double.parseDouble(TrainRouteFragment.ti.getRoute().get(i+1).getLng())!=0.0)
+                {
+                    y=i+1;
+                }
+                else
+                {
+                    y=i+2;
+                }
+
+
+                mMap.addPolyline(new PolylineOptions().add(new LatLng(Double.parseDouble(routelist.get(x).getLat()), Double.parseDouble(routelist.get(x).getLng())), new LatLng(Double.parseDouble(routelist.get(y).getLat()), Double.parseDouble(routelist.get(y).getLng()))).color(Color.BLUE));
+
+          i=y;
+
+            }
+
+        }
+        }
+
 
     }
 }

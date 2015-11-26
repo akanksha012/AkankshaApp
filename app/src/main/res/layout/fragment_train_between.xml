@@ -12,7 +12,7 @@
         android:layout_alignParentTop="true"
         android:layout_margin="10dp"
         android:layout_marginTop="20dp"
-        android:hint="Train No. or Train Name" />
+        android:hint="Source Train No. or Train Name" />
 
     <AutoCompleteTextView
         android:id="@+id/actvdestination"
@@ -22,7 +22,7 @@
         android:layout_below="@+id/actvfrom"
         android:layout_margin="10dp"
         android:layout_marginTop="20dp"
-        android:hint="Train No. or Train Name" />
+        android:hint="Destination Train No. or Train Name" />
 
     <Button
         android:id="@+id/bsearch"

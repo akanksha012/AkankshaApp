@@ -5,6 +5,8 @@
     tools:context="akanshaapp.com.geu.akanshaapp.akanshaapp.TrainInfoFragment">
 
 
+
+
     <AutoCompleteTextView
         android:id="@+id/actsource"
         android:layout_width="fill_parent"
@@ -24,27 +26,31 @@
         android:layout_centerHorizontal="true"
         android:text="Search" />
 
-    <android.support.v7.widget.RecyclerView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/trainrouterecycler"
-        android:layout_below="@+id/bsearch">
-
-
-
-    </android.support.v7.widget.RecyclerView>
-
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="5dp"
         android:background="#00f"
         android:padding="5dp"
         android:text="GoogleMap"
-        android:layout_below="@+id/trainrouterecycler"
+
+        android:layout_below="@+id/bsearch"
         android:textAlignment="center"
         android:textColor="#fff"
         android:id="@+id/linkgoogle" />
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:id="@+id/trainrouterecycler"
+        android:layout_below="@+id/linkgoogle">
+
+
+
+    </android.support.v7.widget.RecyclerView>
+
+
 
 </RelativeLayout>

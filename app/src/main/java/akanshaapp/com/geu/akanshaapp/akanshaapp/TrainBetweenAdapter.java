@@ -39,7 +39,7 @@ public class TrainBetweenAdapter extends RecyclerView.Adapter<TrainBetweenAdapte
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, final int i) {
         final TrainBetweenInfo tb = mItems.get(i);
-        viewHolder.tvtrainno.setText(tb.getNumber());
+        viewHolder.tvtrainno.setText("Train No: "+tb.getNumber());
         viewHolder.tvtrainname.setText(tb.getName());
         viewHolder.tvtrainsource.setText(tb.getFrom());
         viewHolder.tvtraindestination.setText(tb.getTo());
